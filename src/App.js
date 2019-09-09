@@ -9,9 +9,17 @@ function App() {
   const [homeScore, sethomeScore] = useState(0);
   const [awayScore, setAwayScore] = useState(0);
 
+  const homeTeam = "giants"
+
+  const handler = (team, score) =>{
+    if (team === homeTeam){
+     return () => sethomeScore(homeScore + score);
+    } else{
+     return () => setAwayScore(awayScore + score);
+    }
+  }
+
   const homeTouchdown = () => {
-    // needs both the current score,
-    // needs a score setter so we can set new state
     sethomeScore(homeScore + 7);
   };
 
@@ -49,7 +57,9 @@ function App() {
       <section className="buttons">
         <div className="homeButtons">
           {/* TODO STEP 4 - Now we need to attach our state setter functions to click listeners. */}
+          
           <button className="homeButtons__touchdown" onClick={homeTouchdown}>Home Touchdown</button>
+          <button className="homeButtons__touchdown" onClick={handler("lions", 50)}>Score Handler</button>
           <button className="homeButtons__fieldGoal" onClick={homefieldGoal}>Home Field Goal</button>
         </div>
         <div className="awayButtons">
